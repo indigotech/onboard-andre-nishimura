@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 
-interface ITextInput {
+interface TextInputProps {
   name: string;
   label: string;
   value: string | undefined;
   onValueChange: (value: string) => void;
 }
 
-const TextInput = ({ name, label, value, onValueChange }: ITextInput): React.ReactElement => {
+export const TextInput = ({ name, label, value, onValueChange }: TextInputProps): React.ReactElement => {
   return (
     <Fragment>
       <div>{label}</div>
@@ -15,5 +15,3 @@ const TextInput = ({ name, label, value, onValueChange }: ITextInput): React.Rea
     </Fragment>
   );
 };
-
-export default TextInput;

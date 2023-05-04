@@ -1,11 +1,9 @@
 import React from 'react';
 
-interface IInput {
+interface SubmitButtonProps {
   label: string;
 }
 
-const SubmitButton = ({ label }: IInput): React.ReactElement => {
+export const SubmitButton = ({ label }: SubmitButtonProps): React.ReactElement => {
   return <input type='submit' value={label} />;
 };
-
-export default SubmitButton;

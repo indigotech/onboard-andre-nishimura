@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 
-interface IPasswordInput {
+interface PasswordInputProps {
   name: string;
   label: string;
   value: string | undefined;
   onValueChange: (value: string) => void;
 }
 
-const PasswordInput = ({ name, label, value, onValueChange }: IPasswordInput): React.ReactElement => {
+export const PasswordInput = ({ name, label, value, onValueChange }: PasswordInputProps): React.ReactElement => {
   return (
     <Fragment>
       <div>{label}</div>
@@ -15,5 +15,3 @@ const PasswordInput = ({ name, label, value, onValueChange }: IPasswordInput): R
     </Fragment>
   );
 };
-
-export default PasswordInput;
