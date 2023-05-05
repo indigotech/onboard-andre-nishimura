@@ -15,7 +15,7 @@ export const LoginForm = (): React.ReactElement => {
       return false;
     }
 
-    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.com$/i;
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.com.br$/i;
     const isFormatValid = emailRegex.test(email);
 
     if (isFormatValid) {
@@ -37,8 +37,12 @@ export const LoginForm = (): React.ReactElement => {
     const isFormatValid = passwordRegex.test(password);
 
     const errors: string[] = [];
-    if (password.length < 7) errors.push('The password must have a minimun of 7 characters');
-    if (!isFormatValid) errors.push('The password must have at least one letter and one digit');
+    if (password.length < 7) {
+      errors.push('The password must have a minimun of 7 characters');
+    }
+    if (!isFormatValid) {
+      errors.push('The password must have at least one letter and one digit');
+    }
 
     setPasswordErrors(errors);
     return errors.length === 0;
