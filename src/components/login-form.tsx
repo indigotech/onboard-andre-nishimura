@@ -1,4 +1,6 @@
 import React, { FormEventHandler, useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { LoginMutation } from './login-mutation';
 import { PasswordInput } from './password-input';
 import { SubmitButton } from './submit-button';
 import { TextInput } from './text-input';
@@ -8,6 +10,8 @@ export const LoginForm = (): React.ReactElement => {
   const [passwordValue, setPasswordValue] = useState<string>('');
   const [emaiLErrors, setEmailErrors] = useState<string[]>([]);
   const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
+
+  const [login, { loading, error }] = useMutation(LoginMutation);
 
   const validateEmail = (email: string): boolean => {
     if (!email) {
@@ -55,7 +59,9 @@ export const LoginForm = (): React.ReactElement => {
     const isPasswordValid = validatePassword(passwordValue);
 
     if (isEmailValid && isPasswordValid) {
-      console.log(`Logged in with email ${emailValue} and password ${passwordValue}`);
+      login({ variables: { email: emailValue, password: passwordValue } })
+        .then((result) => console.log(result))
+        .catch((error) => console.log(error));
     }
   };
 
@@ -71,9 +77,16 @@ export const LoginForm = (): React.ReactElement => {
           errors={passwordErrors}
         />
       </div>
-      <div>
-        <SubmitButton label='Log in' />
-      </div>
+      {loading ? (
+        <div>
+          <SubmitButton label='Loading...' disabled />
+        </div>
+      ) : (
+        <div>
+          <SubmitButton label='Log in' />
+        </div>
+      )}
+      {error && `Error: ${error.message}`}
     </form>
   );
 };
