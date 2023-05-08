@@ -32,26 +32,16 @@ export const LoginForm = (): React.ReactElement => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <TextInput name='email' label='E-mail' value={emailValue} onValueChange={setEmailValue} errors={emaiLErrors} />
-        <PasswordInput
-          name='password'
-          label='Password'
-          value={passwordValue}
-          onValueChange={setPasswordValue}
-          errors={passwordErrors}
-        />
-      </div>
-      {loading ? (
-        <div>
-          <SubmitButton label='Loading...' disabled />
-        </div>
-      ) : (
-        <div>
-          <SubmitButton label='Log in' />
-        </div>
-      )}
-      {error && `Error: ${error.message}`}
+      <TextInput name='email' label='E-mail' value={emailValue} onValueChange={setEmailValue} errors={emaiLErrors} />
+      <PasswordInput
+        name='password'
+        label='Password'
+        value={passwordValue}
+        onValueChange={setPasswordValue}
+        errors={passwordErrors}
+      />
+      <div>{loading ? <SubmitButton label='Loading...' disabled /> : <SubmitButton label='Log in' />}</div>
+      {error && <p>Error: {error.message}</p>}
     </form>
   );
 };

@@ -15,7 +15,7 @@ const authLink = setContext((_, { headers }) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     headers: {
       ...headers,
-      authorization: token ? token : '',
+      authorization: token ?? '',
     },
   };
 });
