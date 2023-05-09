@@ -5,6 +5,7 @@ import { PasswordInput } from './password-input';
 import { SubmitButton } from './submit-button';
 import { TextInput } from './text-input';
 import { validateEmail, validatePassword } from '../functions/form-validations';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginForm = (): React.ReactElement => {
   const [emailValue, setEmailValue] = useState<string>('');
@@ -13,6 +14,8 @@ export const LoginForm = (): React.ReactElement => {
   const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
 
   const [login, { loading, error }] = useMutation(loginMutation);
+
+  const navigate = useNavigate();
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
@@ -25,6 +28,7 @@ export const LoginForm = (): React.ReactElement => {
         .then((result: FetchResult<Record<string, LoginType>>) => {
           const token = result.data ? result.data.login.token : '';
           localStorage.setItem('token', token);
+          navigate('/blank-page', { replace: true });
         })
         .catch((error) => console.log(error));
     }

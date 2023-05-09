@@ -1,11 +1,10 @@
-import { LoginForm } from './components/login-form';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 
-function App() {
+export const App = (): React.ReactElement => {
   return (
-    <div>
-      <LoginForm />
+    <div id='app'>
+      <Outlet />
     </div>
   );
-}
-
-export default App;
+};
