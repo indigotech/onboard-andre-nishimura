@@ -2,7 +2,7 @@ import React from 'react';
 import { UserType } from '../queries/user-list-query';
 
 interface UserListProps {
-  users: UserType[] | undefined;
+  users?: UserType[];
 }
 
 export const UserList = ({ users }: UserListProps): React.ReactElement => {
