@@ -1,14 +1,14 @@
 import { gql } from '@apollo/client';
 
-type UserType = {
+interface User {
   id: string;
   name: string;
-};
+}
 
-export type LoginType = {
+export interface LoginData {
   token: string;
-  user: UserType;
-};
+  user: User;
+}
 
 export const loginMutation = gql`
   mutation LoginMutation($email: String!, $password: String!) {
