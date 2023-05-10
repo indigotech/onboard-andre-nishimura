@@ -1,16 +1,16 @@
 import { gql } from '@apollo/client';
 
-export type UserType = {
+export interface User {
   id: string;
   name: string;
   email: string;
-};
+}
 
-export type UserListQueryDataType = {
+export interface UserListQueryData {
   users: {
-    nodes: UserType[];
+    nodes: User[];
   };
-};
+}
 
 export const userListQuery = gql`
   query UserListQuery {
