@@ -6,6 +6,7 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import './index.css';
 import { LoginPage } from './pages/login-page';
 import { App } from './app';
+import { UserListPage } from './pages/user-list-page';
 
 const httpLink = createHttpLink({
   uri: 'https://template-onboarding-node-sjz6wnaoia-uc.a.run.app/graphql',
@@ -31,7 +32,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route path='login' element={<LoginPage />} />
-      <Route path='blank-page' />
+      <Route path='user-list' element={<UserListPage />} />
     </Route>,
   ),
 );
