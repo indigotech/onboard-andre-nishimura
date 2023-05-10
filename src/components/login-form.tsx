@@ -1,6 +1,6 @@
 import React, { FormEventHandler, useState } from 'react';
 import { FetchResult, useMutation } from '@apollo/client';
-import { loginMutation, LoginType } from '../mutations/login-mutation';
+import { loginMutation, LoginData } from '../mutations/login-mutation';
 import { PasswordInput } from './password-input';
 import { SubmitButton } from './submit-button';
 import { TextInput } from './text-input';
@@ -25,7 +25,7 @@ export const LoginForm = (): React.ReactElement => {
 
     if (isEmailValid && isPasswordValid) {
       login({ variables: { email: emailValue, password: passwordValue } })
-        .then((result: FetchResult<Record<string, LoginType>>) => {
+        .then((result: FetchResult<Record<string, LoginData>>) => {
           const token = result.data ? result.data.login.token : '';
           localStorage.setItem('token', token);
           navigate('/user-list', { replace: true });
