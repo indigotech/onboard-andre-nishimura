@@ -8,7 +8,7 @@ interface UserListProps {
 export const UserList = ({ users }: UserListProps): React.ReactElement => {
   return (
     <ul>
-      {users?.map((user) => {
+      {users?.map((user: User) => {
         return (
           <li key={user.id}>
             {user.name} - {user.email}
