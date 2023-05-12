@@ -4,9 +4,10 @@ import { Pagination } from '../components/pagination';
 import { UserList } from '../components/user-list';
 import { userListQuery, UserListQueryData } from '../queries/user-list-query';
 
+const PAGE_LIMIT = 20;
+
 export const UserListPage = (): React.ReactElement => {
   const [currentPage, setCurrentPage] = useState(0);
-  const PAGE_LIMIT = 20;
   const paginationOffset = currentPage * PAGE_LIMIT;
 
   const { loading, error, data } = useQuery<UserListQueryData>(userListQuery, {

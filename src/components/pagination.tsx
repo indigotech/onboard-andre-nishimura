@@ -18,7 +18,7 @@ export const Pagination = ({
   loading,
 }: PaginationProps): React.ReactElement => {
   if (loading) {
-    return <button>loading pagination...</button>;
+    return <p>loading pagination...</p>;
   }
 
   const maxPage = elementsCount ? Math.floor(elementsCount / limit) : 0;
