@@ -1,24 +1,38 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 
-export const Pagination = (): React.ReactElement => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const maxPage = 7;
-  const neighbours = 2;
+interface PaginationProps {
+  currentPage: number;
+  neighbours: number;
+  limit: number;
+  setCurrentPage: (page: number) => void;
+  elementsCount?: number;
+  loading?: boolean;
+}
+
+export const Pagination = ({
+  currentPage,
+  neighbours,
+  limit,
+  setCurrentPage,
+  elementsCount,
+  loading,
+}: PaginationProps): React.ReactElement => {
+  if (loading) {
+    return <button>loading pagination...</button>;
+  }
+
+  const maxPage = elementsCount ? Math.floor(elementsCount / limit) : 0;
   const selectedPages = selectPagesToShow(currentPage, maxPage, neighbours);
 
   const pageButtons = selectedPages.map((page) => {
     if (typeof page == 'string') {
       return '...';
-    } else {
-      return (
-        <button
-          onClick={() => setCurrentPage(page)}
-          style={currentPage === page ? { backgroundColor: 'lightGray' } : {}}
-        >
-          {page + 1}
-        </button>
-      );
     }
+    return (
+      <button onClick={() => setCurrentPage(page)} style={currentPage === page ? { backgroundColor: 'lightGray' } : {}}>
+        {page + 1}
+      </button>
+    );
   });
 
   const previousButton = (

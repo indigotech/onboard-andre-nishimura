@@ -9,17 +9,19 @@ export interface User {
 export interface UserListQueryData {
   users: {
     nodes: User[];
+    count: number;
   };
 }
 
 export const userListQuery = gql`
-  query UserListQuery {
-    users {
+  query UserListQuery($offset: Int, $limit: Int) {
+    users(data: { offset: $offset, limit: $limit }) {
       nodes {
         id
         name
         email
       }
+      count
     }
   }
 `;
