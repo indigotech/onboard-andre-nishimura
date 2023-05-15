@@ -7,6 +7,7 @@ import { TextInput } from './text-input';
 import { validateEmail, validatePassword } from '../functions/form-validations';
 import { RadioInput } from './radio-input';
 import { PhoneInput } from './phone-input';
+import { DateInput } from './date-input';
 
 enum UserRole {
   user = 'user',
@@ -50,7 +51,7 @@ export const AddUserForm = (): React.ReactElement => {
       <TextInput name='name' label='Name' value={nameValue} onValueChange={setNameValue} />
       <TextInput name='email' label='E-mail' value={emailValue} onValueChange={setEmailValue} errors={emaiLErrors} />
       <PhoneInput name='phone' label='Phone' value={phoneValue} onValueChange={setPhoneValue} errors={emaiLErrors} />
-      <TextInput
+      <DateInput
         name='birthdate'
         label='Birth date'
         value={birthDateValue}

@@ -13,7 +13,7 @@ export const DateInput = ({ name, label, value, onValueChange, errors }: DateInp
   return (
     <Fragment>
       <div>{label}</div>
-      <input name={name} type='text' value={value} onChange={(e) => onValueChange(e.target.value)} />
+      <input name={name} type='date' value={value} onChange={(e) => onValueChange(e.target.value)} />
       {errors && <FormFieldErrorList errors={errors} />}
     </Fragment>
   );
