@@ -4,7 +4,13 @@ import { loginMutation, LoginData } from '../mutations/login-mutation';
 import { PasswordInput } from './password-input';
 import { SubmitButton } from './submit-button';
 import { TextInput } from './text-input';
-import { validateEmail, validatePassword } from '../functions/form-validations';
+import {
+  validateEmail,
+  validatePassword,
+  validateBirthDate,
+  validatePhone,
+  required,
+} from '../functions/form-validations';
 import { RadioInput } from './radio-input';
 import { PhoneInput } from './phone-input';
 import { DateInput } from './date-input';
@@ -22,6 +28,7 @@ export const AddUserForm = (): React.ReactElement => {
   const [passwordValue, setPasswordValue] = useState<string>('');
   const [roleValue, setRoleValue] = useState<string>(UserRole.user);
 
+  const [nameErrors, setNameErrors] = useState<string[]>([]);
   const [emaiLErrors, setEmailErrors] = useState<string[]>([]);
   const [phoneErrors, setPhoneErrors] = useState<string[]>([]);
   const [birthDateErrors, setBirthDateErrors] = useState<string[]>([]);
@@ -32,25 +39,28 @@ export const AddUserForm = (): React.ReactElement => {
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
 
-    // const isEmailValid = validateEmail(emailValue, setEmailErrors);
-    // const isPasswordValid = validatePassword(passwordValue, setPasswordErrors);
+    const isNameValid = required(nameValue, setNameErrors);
+    const isEmailValid = validateEmail(emailValue, setEmailErrors);
+    const isPasswordValid = validatePassword(passwordValue, setPasswordErrors);
+    const isPhoneValid = validatePhone(phoneValue, setPhoneErrors);
+    const isBirthDateValid = validateBirthDate(birthDateValue, setBirthDateErrors);
 
-    // if (isEmailValid && isPasswordValid) {
-    console.log(`User created \n
-      ${nameValue}\n
-      ${emailValue}\n
-      ${phoneValue}\n
-      ${birthDateValue}\n
-      ${passwordValue}\n
-      ${roleValue}`);
-    // }
+    if (isNameValid && isEmailValid && isPasswordValid && isPhoneValid && isBirthDateValid) {
+      console.log(`User created \n
+        ${nameValue}\n
+        ${emailValue}\n
+        ${phoneValue}\n
+        ${birthDateValue}\n
+        ${passwordValue}\n
+        ${roleValue}`);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextInput name='name' label='Name' value={nameValue} onValueChange={setNameValue} />
+      <TextInput name='name' label='Name' value={nameValue} onValueChange={setNameValue} errors={nameErrors} />
       <TextInput name='email' label='E-mail' value={emailValue} onValueChange={setEmailValue} errors={emaiLErrors} />
-      <PhoneInput name='phone' label='Phone' value={phoneValue} onValueChange={setPhoneValue} errors={emaiLErrors} />
+      <PhoneInput name='phone' label='Phone' value={phoneValue} onValueChange={setPhoneValue} errors={phoneErrors} />
       <DateInput
         name='birthdate'
         label='Birth date'
