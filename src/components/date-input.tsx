@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { FormFieldErrorList } from './form-field-error-list';
 
-interface TextInputProps {
+interface DateInputProps {
   name: string;
   label: string;
   value: string;
@@ -9,7 +9,7 @@ interface TextInputProps {
   errors?: string[];
 }
 
-export const TextInput = ({ name, label, value, onValueChange, errors }: TextInputProps): React.ReactElement => {
+export const DateInput = ({ name, label, value, onValueChange, errors }: DateInputProps): React.ReactElement => {
   return (
     <Fragment>
       <div>{label}</div>
