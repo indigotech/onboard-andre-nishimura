@@ -21,20 +21,18 @@ enum UserRole {
 }
 
 export const AddUserForm = (): React.ReactElement => {
-  const [nameValue, setNameValue] = useState<string>('');
-  const [emailValue, setEmailValue] = useState<string>('');
-  const [phoneValue, setPhoneValue] = useState<string>('');
-  const [birthDateValue, setBirthDateValue] = useState<string>('');
-  const [passwordValue, setPasswordValue] = useState<string>('');
-  const [roleValue, setRoleValue] = useState<string>(UserRole.user);
+  const [nameValue, setNameValue] = useState('');
+  const [emailValue, setEmailValue] = useState('');
+  const [phoneValue, setPhoneValue] = useState('');
+  const [birthDateValue, setBirthDateValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+  const [roleValue, setRoleValue] = useState(UserRole.user);
 
   const [nameErrors, setNameErrors] = useState<string[]>([]);
   const [emaiLErrors, setEmailErrors] = useState<string[]>([]);
   const [phoneErrors, setPhoneErrors] = useState<string[]>([]);
   const [birthDateErrors, setBirthDateErrors] = useState<string[]>([]);
   const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
-
-  // const [createUser, { loading, error }] = useMutation();
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
@@ -78,20 +76,16 @@ export const AddUserForm = (): React.ReactElement => {
       <RadioInput
         name='role'
         label='User'
-        value={UserRole.user}
-        onValueChange={setRoleValue}
+        onValueChange={() => setRoleValue(UserRole.user)}
         checked={roleValue === UserRole.user}
       />
       <RadioInput
         name='role'
         label='Admin'
-        value={UserRole.admin}
-        onValueChange={setRoleValue}
+        onValueChange={() => setRoleValue(UserRole.admin)}
         checked={roleValue === UserRole.admin}
       />
       <SubmitButton label='Add user' />
-      {/* <div>{loading ? <SubmitButton label='Loading...' disabled /> : <SubmitButton label='Add user' />}</div>
-      {error && <p>Error: {error.message}</p>} */}
     </form>
   );
 };
