@@ -1,35 +1,29 @@
-export const required = (value: any, setErrors: (errors: string[]) => void): boolean => {
+export const validateRequired = (value: any) => {
   if (!value) {
-    setErrors(['This field is required']);
-    return false;
+    return ['This field is required'];
   }
 
-  setErrors([]);
-  return true;
+  return [];
 };
 
-export const validateEmail = (email: string, setErrors: (errors: string[]) => void): boolean => {
+export const validateEmail = (email: string) => {
   if (!email) {
-    setErrors(['The e-mail field is required']);
-    return false;
+    return ['The e-mail field is required'];
   }
 
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.com.br$/i;
   const isFormatValid = emailRegex.test(email);
 
   if (isFormatValid) {
-    setErrors([]);
-    return true;
+    return [];
   } else {
-    setErrors(['The value has an invalid e-mail format']);
-    return false;
+    return ['The value has an invalid e-mail format'];
   }
 };
 
-export const validatePassword = (password: string, setErrors: (errors: string[]) => void): boolean => {
+export const validatePassword = (password: string) => {
   if (!password) {
-    setErrors(['The password is required']);
-    return false;
+    return ['The password is required'];
   }
 
   const passwordRegex = /^(?=.*\d)(?=.*[A-Za-z]).{0,}$/;
@@ -43,44 +37,36 @@ export const validatePassword = (password: string, setErrors: (errors: string[])
     errors.push('The password must have at least one letter and one digit');
   }
 
-  setErrors(errors);
-  return errors.length === 0;
+  return errors;
 };
 
-export const validatePhone = (phone: string, setErrors: (errors: string[]) => void): boolean => {
+export const validatePhone = (phone: string) => {
   if (!phone) {
-    setErrors(['The phone is required']);
-    return false;
+    return ['The phone is required'];
   }
 
   if (phone.length < 8) {
-    setErrors(['Phone number should have at least 8 digits']);
-    return false;
+    return ['Phone number should have at least 8 digits'];
   }
 
-  setErrors([]);
-  return true;
+  return [];
 };
 
-export const validateBirthDate = (date: string, setErrors: (errors: string[]) => void): boolean => {
+export const validateBirthDate = (date: string) => {
   if (!date) {
-    setErrors(['The birth date is required']);
-    return false;
+    return ['The birth date is required'];
   }
 
   const birthDate = new Date(date);
   const currentDate = new Date();
 
   if (birthDate.getTime() > currentDate.getTime()) {
-    setErrors(['Birth date cannot be in the future']);
-    return false;
+    return ['Birth date cannot be in the future'];
   }
 
   if (birthDate.getFullYear() < currentDate.getFullYear() - 100) {
-    setErrors(['Year of birth date should be no more than 100 years ago']);
-    return false;
+    return ['Year of birth date should be no more than 100 years ago'];
   }
 
-  setErrors([]);
-  return true;
+  return [];
 };

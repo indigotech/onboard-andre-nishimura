@@ -10,7 +10,7 @@ interface PhoneInputProps {
 }
 
 export const PhoneInput = ({ name, label, value, onValueChange, errors }: PhoneInputProps): React.ReactElement => {
-  const setPhoneValue = (phoneDigits: string) => {
+  const handleInputChange = (phoneDigits: string) => {
     const rawValue = formatPhoneToRawValue(phoneDigits);
     rawValue.length < 11 ? onValueChange(rawValue) : onValueChange(rawValue.substring(0, 11));
   };
@@ -22,7 +22,7 @@ export const PhoneInput = ({ name, label, value, onValueChange, errors }: PhoneI
         name={name}
         type='text'
         value={formatRawValueToPhone(value)}
-        onChange={(e) => setPhoneValue(e.target.value)}
+        onChange={(e) => handleInputChange(e.target.value)}
       />
       {errors && <FormFieldErrorList errors={errors} />}
     </Fragment>

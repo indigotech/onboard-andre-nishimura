@@ -1,15 +1,13 @@
-import React, { FormEventHandler, useState } from 'react';
-import { FetchResult, useMutation } from '@apollo/client';
-import { loginMutation, LoginData } from '../mutations/login-mutation';
+import React, { FormEventHandler, Key, useState } from 'react';
 import { PasswordInput } from './password-input';
 import { SubmitButton } from './submit-button';
 import { TextInput } from './text-input';
 import {
-  validateEmail,
+  validateRequired,
   validatePassword,
   validateBirthDate,
   validatePhone,
-  required,
+  validateEmail,
 } from '../functions/form-validations';
 import { RadioInput } from './radio-input';
 import { PhoneInput } from './phone-input';
@@ -28,22 +26,31 @@ export const AddUserForm = (): React.ReactElement => {
   const [passwordValue, setPasswordValue] = useState('');
   const [roleValue, setRoleValue] = useState(UserRole.user);
 
-  const [nameErrors, setNameErrors] = useState<string[]>([]);
-  const [emaiLErrors, setEmailErrors] = useState<string[]>([]);
-  const [phoneErrors, setPhoneErrors] = useState<string[]>([]);
-  const [birthDateErrors, setBirthDateErrors] = useState<string[]>([]);
-  const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
+  const [formErrors, setFormErrors] = useState<Record<Key, string[]>>({
+    name: [],
+    email: [],
+    phone: [],
+    birthDate: [],
+    password: [],
+  });
+
+  const isFormValid = () => {
+    const errors: Record<Key, string[]> = {
+      name: validateRequired(nameValue),
+      email: validateEmail(emailValue),
+      phone: validatePhone(phoneValue),
+      birthDate: validateBirthDate(birthDateValue),
+      password: validatePassword(passwordValue),
+    };
+
+    setFormErrors(errors);
+    return Object.values(errors).every((error) => error.length === 0);
+  };
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
 
-    const isNameValid = required(nameValue, setNameErrors);
-    const isEmailValid = validateEmail(emailValue, setEmailErrors);
-    const isPasswordValid = validatePassword(passwordValue, setPasswordErrors);
-    const isPhoneValid = validatePhone(phoneValue, setPhoneErrors);
-    const isBirthDateValid = validateBirthDate(birthDateValue, setBirthDateErrors);
-
-    if (isNameValid && isEmailValid && isPasswordValid && isPhoneValid && isBirthDateValid) {
+    if (isFormValid()) {
       console.log(`User created \n
         ${nameValue}\n
         ${emailValue}\n
@@ -56,22 +63,34 @@ export const AddUserForm = (): React.ReactElement => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextInput name='name' label='Name' value={nameValue} onValueChange={setNameValue} errors={nameErrors} />
-      <TextInput name='email' label='E-mail' value={emailValue} onValueChange={setEmailValue} errors={emaiLErrors} />
-      <PhoneInput name='phone' label='Phone' value={phoneValue} onValueChange={setPhoneValue} errors={phoneErrors} />
+      <TextInput name='name' label='Name' value={nameValue} onValueChange={setNameValue} errors={formErrors.name} />
+      <TextInput
+        name='email'
+        label='E-mail'
+        value={emailValue}
+        onValueChange={setEmailValue}
+        errors={formErrors.email}
+      />
+      <PhoneInput
+        name='phone'
+        label='Phone'
+        value={phoneValue}
+        onValueChange={setPhoneValue}
+        errors={formErrors.phone}
+      />
       <DateInput
         name='birthdate'
         label='Birth date'
         value={birthDateValue}
         onValueChange={setBirthDateValue}
-        errors={birthDateErrors}
+        errors={formErrors.birthDate}
       />
       <PasswordInput
         name='password'
         label='Password'
         value={passwordValue}
         onValueChange={setPasswordValue}
-        errors={passwordErrors}
+        errors={formErrors.password}
       />
       <RadioInput
         name='role'

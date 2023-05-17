@@ -13,7 +13,7 @@ export const RadioInput = ({ name, label, onValueChange, checked, errors }: Radi
   return (
     <Fragment>
       <input name={name} type='radio' onChange={onValueChange} checked={checked} />
-      {label}
+      <label>{label}</label>
       {errors && <FormFieldErrorList errors={errors} />}
     </Fragment>
   );
