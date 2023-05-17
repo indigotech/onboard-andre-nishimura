@@ -29,11 +29,7 @@ export const Pagination = ({
       return '...';
     }
     return (
-      <button
-        key={page}
-        onClick={() => setCurrentPage(page)}
-        style={currentPage === page ? { backgroundColor: 'lightGray' } : {}}
-      >
+      <button onClick={() => setCurrentPage(page)} style={currentPage === page ? { backgroundColor: 'lightGray' } : {}}>
         {page + 1}
       </button>
     );
