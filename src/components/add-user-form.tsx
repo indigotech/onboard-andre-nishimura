@@ -1,4 +1,8 @@
 import React, { FormEventHandler, Key, useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
+import { createUserMutation } from '../mutations/create-user-mutation';
+import { userListQuery } from '../queries/user-list-query';
 import { PasswordInput } from './password-input';
 import { SubmitButton } from './submit-button';
 import { TextInput } from './text-input';
@@ -34,6 +38,10 @@ export const AddUserForm = (): React.ReactElement => {
     password: [],
   });
 
+  const [createUser, { loading, error }] = useMutation(createUserMutation);
+
+  const navigate = useNavigate();
+
   const isFormValid = () => {
     const errors: Record<Key, string[]> = {
       name: validateRequired(nameValue),
@@ -51,13 +59,25 @@ export const AddUserForm = (): React.ReactElement => {
     e.preventDefault();
 
     if (isFormValid()) {
-      console.log(`User created \n
-        ${nameValue}\n
-        ${emailValue}\n
-        ${phoneValue}\n
-        ${birthDateValue}\n
-        ${passwordValue}\n
-        ${roleValue}`);
+      createUser({
+        variables: {
+          data: {
+            name: nameValue,
+            email: emailValue,
+            phone: phoneValue,
+            birthDate: birthDateValue,
+            password: passwordValue,
+            role: roleValue,
+          },
+        },
+        refetchQueries: [{ query: userListQuery }],
+      })
+        .then(() => {
+          navigate('/user-list', { replace: true });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
@@ -104,7 +124,8 @@ export const AddUserForm = (): React.ReactElement => {
         onValueChange={() => setRoleValue(UserRole.admin)}
         checked={roleValue === UserRole.admin}
       />
-      <SubmitButton label='Add user' />
+      <div>{loading ? <SubmitButton label='Loading...' disabled /> : <SubmitButton label='Add user' />}</div>
+      {error && <p>Error: {error.message}</p>}
     </form>
   );
 };
