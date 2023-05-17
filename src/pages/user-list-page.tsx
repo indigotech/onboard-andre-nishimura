@@ -17,6 +17,7 @@ export const UserListPage = (): React.ReactElement => {
       offset: paginationOffset,
       limit: PAGE_LIMIT,
     },
+    fetchPolicy: 'cache-and-network',
   });
 
   const count = data?.users.count;
