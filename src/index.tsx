@@ -8,6 +8,7 @@ import { LoginPage } from './pages/login-page';
 import { App } from './app';
 import { UserListPage } from './pages/user-list-page';
 import { AddUserPage } from './pages/add-user-page';
+import { UserDetailsPage } from './pages/user-details-page';
 
 const httpLink = createHttpLink({
   uri: 'https://template-onboarding-node-sjz6wnaoia-uc.a.run.app/graphql',
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
       <Route path='login' element={<LoginPage />} />
       <Route path='user-list' element={<UserListPage />} />
       <Route path='add-user' element={<AddUserPage />} />
+      <Route path='user-details/:userId' element={<UserDetailsPage />} />
     </Route>,
   ),
 );
