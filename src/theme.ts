@@ -9,6 +9,7 @@ export const styled = baseStyled as ThemedBaseStyledInterface<Theme>;
 const colors = {
   blue: '#2596BE',
   black: '#000000',
+  lightGray: '#DDDDDD',
   gray: '#777777',
   white: '#FFFFFF',
   red: '#BE2528',
@@ -26,8 +27,14 @@ const fontSizes = {
   large: '24px',
 };
 
+const button = {
+  minHeight: '44px',
+  defaultBorderRadius: '4px',
+};
+
 export const theme = {
   colors: colors,
   fontWeights: fontWeights,
   fontSizes: fontSizes,
+  button: button,
 };

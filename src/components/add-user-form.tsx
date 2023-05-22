@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { createUserMutation } from '../mutations/create-user-mutation';
 import { userListQuery } from '../queries/user-list-query';
 import { PasswordInput } from './password-input';
-import { SubmitButton } from './submit-button';
+import { SubmitButton } from './submit-button/submit-button';
 import { TextInput } from './text-input';
 import {
   validateRequired,
@@ -124,7 +124,7 @@ export const AddUserForm = (): React.ReactElement => {
         onValueChange={() => setRoleValue(UserRole.admin)}
         checked={roleValue === UserRole.admin}
       />
-      <div>{loading ? <SubmitButton label='Loading...' disabled /> : <SubmitButton label='Add user' />}</div>
+      <SubmitButton label='Log in' loading={loading} margin='16px 0px' display='block' />
       {error && <p>Error: {error.message}</p>}
     </form>
   );

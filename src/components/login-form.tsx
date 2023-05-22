@@ -2,7 +2,7 @@ import React, { FormEventHandler, Key, useState } from 'react';
 import { FetchResult, useMutation } from '@apollo/client';
 import { loginMutation, LoginData } from '../mutations/login-mutation';
 import { PasswordInput } from './password-input';
-import { SubmitButton } from './submit-button';
+import { SubmitButton } from './submit-button/submit-button';
 import { TextInput } from './text-input';
 import { validateEmail, validatePassword } from '../functions/form-validations';
 import { useNavigate } from 'react-router-dom';
@@ -59,7 +59,7 @@ export const LoginForm = (): React.ReactElement => {
         onValueChange={setPasswordValue}
         errors={formErrors.password}
       />
-      <div>{loading ? <SubmitButton label='Loading...' disabled /> : <SubmitButton label='Log in' />}</div>
+      <SubmitButton label='Log in' loading={loading} margin='16px 0px' display='block' />
       {error && <p>Error: {error.message}</p>}
     </form>
   );
