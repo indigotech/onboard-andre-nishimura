@@ -29,7 +29,12 @@ const fontSizes = {
 
 const button = {
   minHeight: '44px',
-  defaultBorderRadius: '4px',
+  defaultBorderRadius: '8px',
+};
+
+const input = {
+  defaultBorderStyle: 'solid',
+  defaultBorderWidth: '1px',
 };
 
 export const theme = {
@@ -37,4 +42,5 @@ export const theme = {
   fontWeights: fontWeights,
   fontSizes: fontSizes,
   button: button,
+  input: input,
 };

@@ -3,9 +3,7 @@ import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { createUserMutation } from '../mutations/create-user-mutation';
 import { userListQuery } from '../queries/user-list-query';
-import { PasswordInput } from './password-input';
 import { SubmitButton } from './submit-button/submit-button';
-import { TextInput } from './text-input';
 import {
   validateRequired,
   validatePassword,
@@ -13,9 +11,9 @@ import {
   validatePhone,
   validateEmail,
 } from '../functions/form-validations';
-import { RadioInput } from './radio-input';
-import { PhoneInput } from './phone-input';
-import { DateInput } from './date-input';
+import { RadioInput } from './radio-input/radio-input';
+import { FormPhoneField } from './form-phone-field';
+import { FormField } from './form-field';
 
 enum UserRole {
   user = 'user',
@@ -83,48 +81,60 @@ export const AddUserForm = (): React.ReactElement => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextInput name='name' label='Name' value={nameValue} onValueChange={setNameValue} errors={formErrors.name} />
-      <TextInput
+      <FormField
+        name='name'
+        label='Name'
+        type='text'
+        value={nameValue}
+        onValueChange={setNameValue}
+        errors={formErrors.name}
+      />
+      <FormField
         name='email'
         label='E-mail'
+        type='text'
         value={emailValue}
         onValueChange={setEmailValue}
         errors={formErrors.email}
       />
-      <PhoneInput
+      <FormPhoneField
         name='phone'
         label='Phone'
         value={phoneValue}
         onValueChange={setPhoneValue}
         errors={formErrors.phone}
       />
-      <DateInput
+      <FormField
         name='birthdate'
         label='Birth date'
+        type='date'
         value={birthDateValue}
         onValueChange={setBirthDateValue}
         errors={formErrors.birthDate}
       />
-      <PasswordInput
+      <FormField
         name='password'
         label='Password'
+        type='password'
         value={passwordValue}
         onValueChange={setPasswordValue}
         errors={formErrors.password}
       />
-      <RadioInput
-        name='role'
-        label='User'
-        onValueChange={() => setRoleValue(UserRole.user)}
-        checked={roleValue === UserRole.user}
-      />
-      <RadioInput
-        name='role'
-        label='Admin'
-        onValueChange={() => setRoleValue(UserRole.admin)}
-        checked={roleValue === UserRole.admin}
-      />
-      <SubmitButton label='Log in' loading={loading} margin='16px 0px' display='block' />
+      <FormField name='role' label='Role' type='radio'>
+        <RadioInput
+          name='role'
+          label='User'
+          onValueChange={() => setRoleValue(UserRole.user)}
+          checked={roleValue === UserRole.user}
+        />
+        <RadioInput
+          name='role'
+          label='Admin'
+          onValueChange={() => setRoleValue(UserRole.admin)}
+          checked={roleValue === UserRole.admin}
+        />
+      </FormField>
+      <SubmitButton label='Add user' loading={loading} />
       {error && <p>Error: {error.message}</p>}
     </form>
   );

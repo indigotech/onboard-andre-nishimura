@@ -17,8 +17,8 @@ export const SubmitInputStyled = styled.input<SubmitInputStyledProps>`
   color: ${(props) => (props.color ? props.color : props.theme.colors.white)};
   height: ${(props) => (props.height ? props.height : props.theme.button.minHeight)};
   border-radius: ${(props) => props.theme.button.defaultBorderRadius};
-  margin: ${(props) => props.margin};
-  display: ${(props) => (props.display ? props.display : 'inline')};
+  margin: ${(props) => (props.margin ? props.margin : '20px 0px')};
+  display: ${(props) => (props.display ? props.display : 'block')};
 
   :hover {
     cursor: pointer;

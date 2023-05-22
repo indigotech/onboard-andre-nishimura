@@ -1,31 +1,35 @@
-import React, { Fragment } from 'react';
-import { FormFieldErrorList } from './form-field-error-list';
+import React from 'react';
+import { FormField } from './form-field';
 
-interface PhoneInputProps {
-  name: string;
+interface FormPhoneFieldProps {
   label: string;
+  name: string;
   value: string;
   onValueChange: (value: string) => void;
   errors?: string[];
 }
 
-export const PhoneInput = ({ name, label, value, onValueChange, errors }: PhoneInputProps): React.ReactElement => {
+export const FormPhoneField = ({
+  label,
+  name,
+  value,
+  onValueChange,
+  errors,
+}: FormPhoneFieldProps): React.ReactElement => {
   const handleInputChange = (phoneDigits: string) => {
     const rawValue = formatPhoneToRawValue(phoneDigits);
     rawValue.length < 11 ? onValueChange(rawValue) : onValueChange(rawValue.substring(0, 11));
   };
 
   return (
-    <Fragment>
-      <div>{label}</div>
-      <input
-        name={name}
-        type='text'
-        value={formatRawValueToPhone(value)}
-        onChange={(e) => handleInputChange(e.target.value)}
-      />
-      {errors && <FormFieldErrorList errors={errors} />}
-    </Fragment>
+    <FormField
+      label={label}
+      type='text'
+      name={name}
+      value={formatRawValueToPhone(value)}
+      onValueChange={handleInputChange}
+      errors={errors}
+    />
   );
 };
 
