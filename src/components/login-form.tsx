@@ -1,11 +1,10 @@
 import React, { FormEventHandler, Key, useState } from 'react';
 import { FetchResult, useMutation } from '@apollo/client';
 import { loginMutation, LoginData } from '../mutations/login-mutation';
-import { PasswordInput } from './password-input';
-import { SubmitButton } from './submit-button';
-import { TextInput } from './text-input';
+import { SubmitButton } from './submit-button/submit-button';
 import { validateEmail, validatePassword } from '../functions/form-validations';
 import { useNavigate } from 'react-router-dom';
+import { FormField } from './form-field';
 
 export const LoginForm = (): React.ReactElement => {
   const [emailValue, setEmailValue] = useState('');
@@ -45,21 +44,23 @@ export const LoginForm = (): React.ReactElement => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextInput
+      <FormField
         name='email'
         label='E-mail'
+        type='text'
         value={emailValue}
         onValueChange={setEmailValue}
         errors={formErrors.email}
       />
-      <PasswordInput
+      <FormField
         name='password'
         label='Password'
+        type='password'
         value={passwordValue}
         onValueChange={setPasswordValue}
         errors={formErrors.password}
       />
-      <div>{loading ? <SubmitButton label='Loading...' disabled /> : <SubmitButton label='Log in' />}</div>
+      <SubmitButton label='Log in' loading={loading} />
       {error && <p>Error: {error.message}</p>}
     </form>
   );
